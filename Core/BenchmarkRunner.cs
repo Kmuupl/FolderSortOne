@@ -65,6 +65,10 @@ public static class BenchmarkRunner
         results[0].ParallelFraction = f;
         results[0].AmdahlPrediction = 1.0;
 
+        double theoreticalMax = AmdahlCalculator.CalculateTheoreticalMax(f);
+        Console.WriteLine($"\nParallel fraction (f): {f:F3}");
+        Console.WriteLine($"Theoretical maximum speedup (P -> infinity): {theoreticalMax:F2}");
+
         SaveToCsv(filePath, results);
         PrintSummary(results);
     }

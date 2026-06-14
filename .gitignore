@@ -13,6 +13,7 @@
 
 Data/
 Results/
+Temp/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
