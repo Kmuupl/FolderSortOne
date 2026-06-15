@@ -2,7 +2,6 @@ namespace AmdahlExperiment.Core;
 
 public static class FileSplitter
 {
-    // делит входной файл на P временных файлов, возвращает их пути
     public static string[] SplitToFiles(int[] data, int parts, string tempDir)
     {
         if (data == null)

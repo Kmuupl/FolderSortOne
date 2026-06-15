@@ -7,7 +7,6 @@ public static class Merger
         if (chunkPaths == null)
             throw new ArgumentNullException(nameof(chunkPaths));
 
-        // читаем все chunk-файлы в массивы
         int[][] chunks = new int[chunkPaths.Length][];
         for (int i = 0; i < chunkPaths.Length; i++)
         {
@@ -18,14 +17,12 @@ public static class Merger
             chunks[i] = numbers;
         }
 
-        // последовательно сливаем
         int[] result = chunks[0];
         for (int i = 1; i < chunks.Length; i++)
         {
             result = MergeTwo(result, chunks[i]);
         }
 
-        // пишем результат
         using StreamWriter writer = new StreamWriter(outputPath);
         foreach (int num in result)
         {

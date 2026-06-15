@@ -11,13 +11,11 @@ public static class BenchmarkRunner
 
         List<BenchmarkResult> results = new List<BenchmarkResult>();
 
-        // читаем данные один раз
         string[] lines = File.ReadAllLines(filePath);
         int[] data = new int[lines.Length];
         for (int i = 0; i < lines.Length; i++)
             data[i] = int.Parse(lines[i]);
 
-        // P=1 — сортируем весь массив целиком
         Stopwatch sw = Stopwatch.StartNew();
         SelectionSorter.Sort((int[])data.Clone());
         sw.Stop();
@@ -37,8 +35,7 @@ public static class BenchmarkRunner
             AmdahlPrediction = 1.0
         });
 
-        // P=2,3,4... — параллельно
-        double f = 0; // будет вычислена из первого параллельного запуска
+        double f = 0;
 
         for (int p = 2; p <= maxWorkers; p++)
         {
@@ -46,7 +43,6 @@ public static class BenchmarkRunner
 
             result.Speedup = t1 > 0 ? (double)t1 / result.TotalTimeMs : 0;
 
-            // f вычисляем только один раз из P=2
             if (p == 2)
             {
                 f = AmdahlCalculator.CalculateParallelFraction(
@@ -61,7 +57,6 @@ public static class BenchmarkRunner
             results.Add(result);
         }
 
-        // после цикла обновляем P=1
         results[0].ParallelFraction = f;
         results[0].AmdahlPrediction = 1.0;
 
